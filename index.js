@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const {Superadmin, Admin, User} = require('./models');
+const {Superadmin, Admin, User, Mobil } = require('./models');
 const bcrypt = require('bcrypt');
 
 app.use(express.json());
@@ -94,9 +94,19 @@ app.post('/login/user', async (req, res) => {
     res.send(user);
 });
 
-
-
-
+app.post('/create/mobil', async (req, res) => {
+    const { nama, harga, gambar, brand } = req.body;
+    const data = await Mobil.create({
+        nama: nama,
+        harga: harga,
+        gambar: gambar,
+        brand: brand,
+    });
+    res.send({ 
+        message: 'Successfully created',
+        data
+     });
+});
 
 
 app.listen(3000, () => {
